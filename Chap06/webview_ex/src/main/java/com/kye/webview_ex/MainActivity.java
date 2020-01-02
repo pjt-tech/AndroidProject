@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl("file:///android_asset/semple.html");
+        webView.loadUrl("file:///android_asset/sample.html");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
