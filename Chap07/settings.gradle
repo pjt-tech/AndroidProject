@@ -1,2 +1,2 @@
-include ':user_event', ':myapplication12'
+include ':user_event', ':myapplication12', ':orientation_ex'
 rootProject.name='Chap07'
