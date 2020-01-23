@@ -27,6 +27,7 @@ public class Person {
 
     public void cry(){
         Toast.makeText(activity.getApplicationContext(),"우는 방법을 모릅니다.",Toast.LENGTH_LONG).show();
+        activity.imageView.setImageResource(0);
     }
 
 }

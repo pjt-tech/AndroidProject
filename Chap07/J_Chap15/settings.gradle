@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':self-check01'
 rootProject.name='J_Chap15'
