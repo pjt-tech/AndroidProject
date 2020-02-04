@@ -2,6 +2,7 @@ package com.kye.chap08;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ public class NewActivity extends AppCompatActivity {
         intent = getIntent(); //get을 통해 받음
         String name = intent.getStringExtra("activity"); //get을 통해 받음
         Toast.makeText(getApplicationContext(),"보낸 Activity : " + name,Toast.LENGTH_LONG).show();
+
 
 
         button.setOnClickListener(new View.OnClickListener() {
