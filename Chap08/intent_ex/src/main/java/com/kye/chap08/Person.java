@@ -9,10 +9,11 @@ public class Person implements Serializable {
 
     //원본정보를 변경하였으면 version과 내용을 알려 맞춰줘야함.
 
-    private static final long serialVersionUID = 100000L;
+    private static final long serialVersionUID = 100001L;
 
     String name;
     int age;
+    String phone;
 
     public Person(String name, int age) {
         this.name = name;
@@ -34,5 +35,13 @@ public class Person implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
