@@ -31,7 +31,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 ComponentName name = new ComponentName("com.kye.another","com.kye.another.MainActivity");
                 intent.setComponent(name);
-                intent.putExtra("name","Chap08_MainActivity");
+               // intent.putExtra("name","Chap08_MainActivity");
+
+                Person person = new Person("IU",25);
+                Person person1 = new Person("APINK",26);
+                intent.putExtra("Person",person);
+                intent.putExtra("Person1",person1);
+
                 startActivity(intent);
 
             }

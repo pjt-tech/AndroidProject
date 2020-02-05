@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Person implements Serializable {
 
+    // 복사한쪽 Serializable
     private static final long serialVersionUID = 100000L;
 
     String name;
