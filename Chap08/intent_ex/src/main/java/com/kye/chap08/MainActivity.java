@@ -20,14 +20,15 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
-            //Intent는 우편배달부
-            @Override
+                //Intent는 우편배달부
+                @Override
             public void onClick(View v) {
                 /*
                 Intent intent = new Intent(getApplicationContext(), NewActivity.class); //클래스 생성자 뒤에는 context와 class를 쓸수있다
                 intent.putExtra("activity", "MainActivity"); //키와 값을 입력
                 startActivityForResult(intent, 1000); //누가보낸건지 가리기 위해 요청코드를 입력할수있음. 결과를 기대하며 보냄
                 */
+                /*
                 Intent intent = new Intent();
                 ComponentName name = new ComponentName("com.kye.another","com.kye.another.MainActivity");
                 intent.setComponent(name);
@@ -40,9 +41,14 @@ public class MainActivity extends AppCompatActivity {
                 Person2 person1 = new Person2("TT",27);
                 intent.putExtra("Person",person);
                 intent.putExtra("Person1",person1);
-
+                //activity 매니저에게 찾아감
                 startActivity(intent);
+                */
 
+                //암시적 intent
+                Intent intent = new Intent();
+                intent.setAction("action_ACTION_ANDROID_STUDY");
+                startActivity(intent);
             }
         });
     }
