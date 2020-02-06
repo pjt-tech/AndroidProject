@@ -7,8 +7,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-// import
-import com.kye.chap08.Person;
+import com.kye.chap08.Person2;
+
+// import로 연결 패키지를 생성하여 Person을 복사
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,8 +27,12 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(),"보낸 Activity : " + name,Toast.LENGTH_LONG).show();
 
         //getSerializableExtra 객체를 받는다
-        Person person = (Person)intent.getSerializableExtra("Person");
-        Person person1 = (Person)intent.getSerializableExtra("Person1");
+        //Person person = (Person)intent.getSerializableExtra("Person");
+        //Person person1 = (Person)intent.getSerializableExtra("Person1");
+        //객체간 데이터 전달 완료
+
+        Person2 person = (Person2)intent.getParcelableExtra("Person");
+        Person2 person1 = (Person2)intent.getParcelableExtra("Person1");
 
         if(person==null && person1==null){
             Toast.makeText(getApplicationContext(),"Person 객체를 전달받지 못했습니다.",Toast.LENGTH_LONG).show();

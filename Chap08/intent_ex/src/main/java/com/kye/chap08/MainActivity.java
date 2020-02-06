@@ -33,8 +33,11 @@ public class MainActivity extends AppCompatActivity {
                 intent.setComponent(name);
                // intent.putExtra("name","Chap08_MainActivity");
 
-                Person person = new Person("IU",25);
-                Person person1 = new Person("APINK",26);
+                //Person person = new Person("IU",25);
+                //Person person1 = new Person("APINK",26);
+
+                Person2 person = new Person2("IU",25);
+                Person2 person1 = new Person2("TT",27);
                 intent.putExtra("Person",person);
                 intent.putExtra("Person1",person1);
 

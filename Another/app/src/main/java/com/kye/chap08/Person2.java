@@ -3,15 +3,10 @@ package com.kye.chap08;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
-//Serializable 은 빈껍데기
-//직렬화를 위한 인터페이스
-
 public class Person2 implements Parcelable {
 
-        String name;
-        int age;
+    String name;
+    int age;
 
     public Person2() {
     }
@@ -69,6 +64,6 @@ public class Person2 implements Parcelable {
             return new Person2[0];
         }
     };
-
-
 }
+
+
