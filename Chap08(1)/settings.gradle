@@ -1,0 +1,2 @@
+include ':intent_ex', ':implicit_intent_ex'
+rootProject.name='Chap08'
