@@ -1,2 +1,2 @@
-include ':intent_ex', ':implicit_intent_ex'
+include ':intent_ex', ':implicit_intent_ex', ':implicit_intent_ex2'
 rootProject.name='Chap08'
