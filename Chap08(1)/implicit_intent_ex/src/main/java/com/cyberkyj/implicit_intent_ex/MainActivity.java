@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent=new Intent(Intent.ACTION_CALL, Uri.parse("tel:02-120"));
                 startActivity(intent);
 
+                //허용범위설정
             }else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE},
                        100);
