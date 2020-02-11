@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ResultActivity2.class);
+                Intent intent = new Intent(getApplicationContext(), Result2Activity.class);
                 intent.putExtra("VoteCount", voteCount);
                 intent.putExtra("ImageName", imgName);
                 startActivity(intent);
