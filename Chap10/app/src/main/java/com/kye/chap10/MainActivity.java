@@ -20,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Main2Activity.class));
+                Intent intent = new Intent(getApplicationContext(),Main2Activity.class);
+                intent.putExtra("a2","A1에서 보낸값");
+                startActivity(intent);
             }
         });
     }
