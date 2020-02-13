@@ -33,8 +33,8 @@ public class Main3Activity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Main3Activity.class);
-                intent.putExtra("a3","A3다시호출");
+                Intent intent = new Intent(getApplicationContext(),Main2Activity.class);
+                intent.putExtra("a2","Single_Task를 실행해서 A2로 이동");
                 startActivity(intent);
             }
 
