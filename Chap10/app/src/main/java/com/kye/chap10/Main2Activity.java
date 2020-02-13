@@ -40,6 +40,6 @@ public class Main2Activity extends AppCompatActivity {
         Log.d("LifeCycle", "onNewIntent() 실행");
         String name = intent.getStringExtra("a2");
         textView.setText(name);
-        //onNewIntent를 통한 값 재전달 Singletop 일때 사용
+        //onNewIntent를 통한 값 재전달 재사용 일때 사용
     }
 }

@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Result2Activity"></activity>
-        <activity android:name=".ResultActivity2" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

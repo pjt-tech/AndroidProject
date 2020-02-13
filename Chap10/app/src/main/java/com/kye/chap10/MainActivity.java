@@ -2,6 +2,7 @@ package com.kye.chap10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.button);
+        Button button1 = findViewById(R.id.button4);
 
         setTitle("Activity");
 
@@ -25,6 +27,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                //ComponentName componentName = new ComponentName("com.kye.chap09","com.kye.chap09.MainActivity");
+               // intent.setComponent(componentName);
+                intent.setAction("android.intent_ACTION_PLUS");
+                startActivity(intent);
+            }
+        });
+
     }
 }
 
