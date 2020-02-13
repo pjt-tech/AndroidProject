@@ -30,6 +30,7 @@ public class Main2Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),Main3Activity.class);
                 intent.putExtra("a3","A2에서 보낸값");
+                //new task와 같이사용
                 startActivity(intent);
             }
         });

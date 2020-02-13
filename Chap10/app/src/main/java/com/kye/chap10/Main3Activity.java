@@ -35,6 +35,7 @@ public class Main3Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),Main2Activity.class);
                 intent.putExtra("a2","Single_Task를 실행해서 A2로 이동");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
 
