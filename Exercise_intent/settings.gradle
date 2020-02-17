@@ -1,0 +1,2 @@
+include ':intent_ex', ':intent_ex1'
+rootProject.name='Exercise_intent'
