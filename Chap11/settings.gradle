@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':viewpager_ex'
 rootProject.name='Chap11'
