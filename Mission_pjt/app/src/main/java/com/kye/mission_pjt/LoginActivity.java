@@ -28,14 +28,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(editText.getText().toString().equals("") || editText1.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "아이디와 패스워드를 입력하세요.", Toast.LENGTH_LONG).show();
-                }else if(editText.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(), "아이디를 입력하세요.", Toast.LENGTH_LONG).show();
-                }else if(editText1.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(), "패스워드를 입력하세요.", Toast.LENGTH_LONG).show();
                 } else {
                     intent = new Intent(getApplicationContext(), MenuActivity.class);
                     intent.putExtra("name",editText.getText().toString());
-                    startActivityForResult(intent,10);
+                    startActivity(intent);
+
                 }
             }
         });
