@@ -1,2 +1,2 @@
-include ':inflate_ex', ':viewpager_ex', ':service_ex'
+include ':inflate_ex', ':viewpager_ex', ':service_ex', ':music_service'
 rootProject.name='Chap11'
