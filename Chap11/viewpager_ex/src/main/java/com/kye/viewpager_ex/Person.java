@@ -36,7 +36,7 @@ public class Person extends LinearLayout {
             @Override
             public void onClick(View v) {
                 String call_Num = (String)button.getTag();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel : " +call_Num));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" +call_Num));
                 context.startActivity(intent);
             }
         });
