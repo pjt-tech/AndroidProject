@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +28,13 @@ public class MainActivity extends AppCompatActivity {
                 editText.requestFocus();
               InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
               inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-
-
             }
         });
+    }
+
+    @Override
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode);
+        Toast.makeText(getApplicationContext(),"onMultiWindowModeChanged 실행",Toast.LENGTH_LONG).show();
     }
 }
