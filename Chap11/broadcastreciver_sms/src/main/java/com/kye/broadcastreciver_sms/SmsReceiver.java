@@ -9,23 +9,33 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class SmsReceiver extends BroadcastReceiver {
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("SMS Reciver","onReceive() 호출됨");
+        Log.d("SMS_Reciver","onReceive() 호출됨");
         Bundle bundle = intent.getExtras();
         SmsMessage[] messages = parseSmsMessage(bundle);
         if(messages!=null && messages.length>0){
             String sender = messages[0].getOriginatingAddress(); //발신번호
-            Log.d("SMS Reciver","SMS Sender"+ sender);
+        Log.d("SMS_Reciver","SMS Sender : "+ sender);
 
             String contents = messages[0].getDisplayMessageBody(); //발신메시지
-            Log.d("SMS Reciver","SMS contents"+ contents);
+            Log.d("SMS_Reciver","SMS contents : "+ contents);
 
             Date recevedDate = new Date(messages[0].getTimestampMillis()); //수신시간
-            Log.d("SMS Reciver","SMS recevedDate"+ recevedDate);
+            Log.d("SMS_Reciver","SMS recevedDate : "+ recevedDate);
+
+            intent = new Intent(context,SmsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("sender",sender);
+            intent.putExtra("contents",contents);
+            intent.putExtra("receveDate",dateFormat.format(recevedDate));
+            context.startActivity(intent);
         }
     }
 
