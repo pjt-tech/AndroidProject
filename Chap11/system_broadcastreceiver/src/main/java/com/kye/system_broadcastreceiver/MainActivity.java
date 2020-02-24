@@ -1,17 +1,22 @@
 package com.kye.system_broadcastreceiver;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -52,12 +57,31 @@ public class MainActivity extends AppCompatActivity {
         float pct = (level/(float)scale)*100;
         addListItem("Current Battery : " + pct+"%");
 
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.PROCESS_OUTGOING_CALLS) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this,Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this,Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.PROCESS_OUTGOING_CALLS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CALL_LOG}, 100);
+
+        }
+
         registerReceiver(brOn,new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(brOff,new IntentFilter(Intent.ACTION_SCREEN_OFF));
         registerReceiver(batteryReceiver,new IntentFilter(Intent.ACTION_POWER_CONNECTED));
         registerReceiver(batteryReceiver,new IntentFilter(Intent.ACTION_POWER_DISCONNECTED));
 
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100 && grantResults.length > 0) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED || grantResults[1] != PackageManager.PERMISSION_GRANTED) {
+                Toast toast = Toast.makeText(this, "no permission", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
     }
 
     @Override
