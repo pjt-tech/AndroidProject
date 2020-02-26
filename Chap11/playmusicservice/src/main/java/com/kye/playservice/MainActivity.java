@@ -98,26 +98,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String mode = intent.getStringExtra("mode");
-             if(mode.equals("start")){
-                 int duration = intent.getIntExtra("duration",0);
-                 progressBar.setMax(duration);
-                 progressBar.setProgress(0);
-             }else if(mode.equals("stop")){
-                 runThread=false;
-             }
+            if(mode!=null) {
+                if (mode.equals("start")) {
+                    int duration = intent.getIntExtra("duration", 0);
+                    progressBar.setMax(duration);
+                    progressBar.setProgress(0);
+                } else if (mode.equals("stop")) {
+                    runThread = false;
+                }
+            }
         }
     };
 
     class ProgressThread extends Thread{
-        @Override
-        public void run() {
-            if(runThread){
-                progressBar.incrementProgressBy(1000);
-                SystemClock.sleep(1000);
-                if(progressBar.getProgress()==progressBar.getMax()){
-                    runThread=false;
+            @Override
+            public void run() {
+                if(runThread){
+                    progressBar.incrementProgressBy(1000);
+                    SystemClock.sleep(1000);
+                    if(progressBar.getProgress()==progressBar.getMax()) {
+                        runThread = false;
+
+                    }
                 }
             }
-        }
     }
 }

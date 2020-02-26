@@ -69,9 +69,9 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
                             mediaPlayer.prepare();
                             mediaPlayer.start();
 
-                            Intent intent1 = new Intent("com.kye.PLAY_TO_ACTIVITY");
-                            intent1.putExtra("mode","start");
-                            intent1.putExtra("duration",mediaPlayer.getDuration());
+                            Intent intent1 = new Intent("com.kye.PLAY_TO_SERVICE");
+                            intent.putExtra("mode","start");
+                            intent.putExtra("duration",mediaPlayer.getDuration());
                             sendBroadcast(intent1);
 
                     } catch (IOException e) {
