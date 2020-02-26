@@ -10,9 +10,8 @@ import android.os.IBinder;
 
 import java.io.IOException;
 
-public class PlayService extends Service {
+public class PlayService extends Service implements MediaPlayer.OnCompletionListener {
 
-    public static final String Tag = "com.kye.PLAY_TO_SERVICE";
     MediaPlayer mediaPlayer;
     String  filePath = "/data/data/com.kye.playservice/sample.mp3";
 
@@ -28,18 +27,29 @@ public class PlayService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerReceiver(receiver,new IntentFilter(Tag));
+        registerReceiver(receiver,new IntentFilter("com.kye.PLAY_TO_SERVICE"));
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        filePath = intent.getStringExtra("filePath");
         return super.onStartCommand(intent, flags, startId);
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        Intent intent = new Intent("com.kye.PLAY_TO_ACTIVITY");
+        intent.putExtra("mode","stop");
+        sendBroadcast(intent);
+
+        stopSelf();
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -59,7 +69,7 @@ public class PlayService extends Service {
                             mediaPlayer.prepare();
                             mediaPlayer.start();
 
-                            Intent intent1 = new Intent(Tag);
+                            Intent intent1 = new Intent("com.kye.PLAY_TO_ACTIVITY");
                             intent1.putExtra("mode","start");
                             intent1.putExtra("duration",mediaPlayer.getDuration());
                             sendBroadcast(intent1);
