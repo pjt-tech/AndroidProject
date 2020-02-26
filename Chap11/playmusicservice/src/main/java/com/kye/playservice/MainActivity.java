@@ -1,5 +1,6 @@
 package com.kye.playservice;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Boolean runThread = false;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,58 +39,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressBar = findViewById(R.id.lab1_progress);
         textView = findViewById(R.id.lab1_title);
 
-        filePath = "/data/data/com.kye.playservice/sample.mp3";
+        filePath = "/data/data/com.kye.playService/sample.mp3";
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!=
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
                 PackageManager.PERMISSION_GRANTED) {
-
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},100);
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
 
         }
 
 
-
         playBtn.setOnClickListener(this);
         stopBtn.setOnClickListener(this);
-        stopBtn.setEnabled(false); //최초에 안눌리게 설정
+        stopBtn.setEnabled(false);
 
-        registerReceiver(receiver,new IntentFilter("com.kye.PLAY_TO_ACTIVITY"));
+        registerReceiver(receiver, new IntentFilter("com.kye.PLAY_TO_ACTIVITY"));
 
-        Intent intent = new Intent(getApplicationContext(),PlayService.class);
-        intent.putExtra("filePath",filePath);
+        Intent intent = new Intent(this, PlayService.class);
+        intent.putExtra("filePath", filePath);
         startService(intent);
 
     }
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-    }
-
-
-    @Override
     public void onClick(View v) {
-        if(v==playBtn){
+        if (v == playBtn) {
             Intent intent = new Intent("com.kye.PLAY_TO_SERVICE");
-            intent.putExtra("mode" , "start");
+            intent.putExtra("mode", "start");
             sendBroadcast(intent);
-            runThread=true;
+            runThread = true;
             ProgressThread thread = new ProgressThread();
             thread.start();
             playBtn.setEnabled(false);
             stopBtn.setEnabled(true);
-
-        }else if (v==stopBtn){
+        } else if (v == stopBtn) {
             Intent intent = new Intent("com.kye.PLAY_TO_SERVICE");
-            intent.putExtra("mode" , "stop");
+            intent.putExtra("mode", "stop");
             sendBroadcast(intent);
-            runThread=false;
+            runThread = false;
             progressBar.setProgress(0);
             playBtn.setEnabled(true);
             stopBtn.setEnabled(false);
+
         }
     }
 
@@ -98,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String mode = intent.getStringExtra("mode");
-            if(mode!=null) {
+            if (mode != null) {
                 if (mode.equals("start")) {
                     int duration = intent.getIntExtra("duration", 0);
                     progressBar.setMax(duration);
@@ -110,17 +101,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-    class ProgressThread extends Thread{
-            @Override
-            public void run() {
-                if(runThread){
-                    progressBar.incrementProgressBy(1000);
-                    SystemClock.sleep(1000);
-                    if(progressBar.getProgress()==progressBar.getMax()) {
-                        runThread = false;
+    class ProgressThread extends Thread {
 
-                    }
+        @Override
+        public void run() {
+            while (runThread) {
+                progressBar.incrementProgressBy(1000);
+                SystemClock.sleep(1000);
+                if (progressBar.getProgress()==progressBar.getMax()) {
+                    runThread = false;
                 }
             }
+        }
     }
 }

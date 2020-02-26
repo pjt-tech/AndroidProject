@@ -10,10 +10,9 @@ import android.os.IBinder;
 
 import java.io.IOException;
 
-public class PlayService extends Service implements MediaPlayer.OnCompletionListener {
-
-    MediaPlayer mediaPlayer;
-    String  filePath = "/data/data/com.kye.playservice/sample.mp3";
+public class PlayService extends Service  implements MediaPlayer.OnCompletionListener {
+    MediaPlayer player;
+    String filePath;
 
     public PlayService() {
     }
@@ -34,7 +33,6 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
     public int onStartCommand(Intent intent, int flags, int startId) {
         filePath = intent.getStringExtra("filePath");
         return super.onStartCommand(intent, flags, startId);
-
     }
 
     @Override
@@ -45,11 +43,12 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        Intent intent = new Intent("com.kye.PLAY_TO_ACTIVITY");
+        Intent intent = new Intent("con.kye.PLAY_TO_ACTIVITY");
         intent.putExtra("mode","stop");
         sendBroadcast(intent);
 
         stopSelf();
+
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -59,33 +58,34 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             if(mode!=null){
                 if(mode.equals("start")){
                     try {
-                        if(mediaPlayer!=null && mediaPlayer.isPlaying()) {
-                            mediaPlayer.stop();
-                            mediaPlayer.release();
-                            mediaPlayer = null;
+                        if(player!=null && player.isPlaying()){
+                            player.stop();
+                            player.release();
+                            player=null;
                         }
-                            mediaPlayer = new MediaPlayer();
-                            mediaPlayer.setDataSource(filePath);
-                            mediaPlayer.prepare();
-                            mediaPlayer.start();
+                        player = new MediaPlayer();
+                        player.setDataSource(filePath);
+                        player.prepare();
+                        player.start();
 
-                            Intent intent1 = new Intent("com.kye.PLAY_TO_SERVICE");
-                            intent.putExtra("mode","start");
-                            intent.putExtra("duration",mediaPlayer.getDuration());
-                            sendBroadcast(intent1);
+                        Intent intent1 = new Intent(("com.kye.PLAY_TO_ACTIVITY"));
+                        intent1.putExtra("mode", "start");
+                        intent1.putExtra("duration", player.getDuration());
+                        sendBroadcast(intent1);
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                 }else if(mode.equals("stop")){
-                    if(mediaPlayer!=null && mediaPlayer.isPlaying()){
-                        mediaPlayer.stop();
-                        mediaPlayer.release();
-                        mediaPlayer = null;
+                    if(player!=null && player.isPlaying()){
+                        player.stop();
+                        player.release();
+                        player=null;
                     }
                 }
             }
         }
     };
 }
+
