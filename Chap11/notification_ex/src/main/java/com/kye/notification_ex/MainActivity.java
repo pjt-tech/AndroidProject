@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             channel.setDescription(channelDescription);
 
             manager.createNotificationChannel(channel);
-            builder=new NotificationCompat.Builder(this, channelId);
+            builder = new NotificationCompat.Builder(this, channelId);
         }else {
 
             builder=new NotificationCompat.Builder(this);
