@@ -32,4 +32,14 @@
         android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
         android:text="여기를 클릭" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="체크 대화상자 클릭" />
+
+
 </LinearLayout>

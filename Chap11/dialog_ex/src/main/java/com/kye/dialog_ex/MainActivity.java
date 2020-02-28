@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText edt_Name,edt_Email,dig_Name,dig_Email;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         edt_Email = findViewById(R.id.editText2);
 
         Button button = findViewById(R.id.button);
+        Button button2 = findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +51,40 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getApplicationContext(),"취소했습니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String[] singer = {"AOA","TWICE","APINK","여자친구"};
+                final ArrayList<String> item = new ArrayList<>();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("좋아하는 걸그룹은 ? ");
+                builder.setMultiChoiceItems(singer, null, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                     String value = singer[which];
+                     if(isChecked){
+                         item.add(value);
+                     }else if(item.contains(value)){
+                         item.remove(value);
+                     }
+                    }
+                });
+
+                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String msg = "";
+                        for(int i = 0; i < item.size(); i++){
+                            msg += "\n"+item.get(i);
+                        }
+                        Toast.makeText(getApplicationContext(),"Selected Singer : " + msg,Toast.LENGTH_LONG).show();
                     }
                 });
 
