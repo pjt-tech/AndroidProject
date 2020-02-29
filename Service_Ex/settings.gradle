@@ -1,0 +1,2 @@
+include ':service_ex', ':broadcastreceiver_ex'
+rootProject.name='Service_Ex'
