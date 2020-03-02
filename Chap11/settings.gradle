@@ -1,2 +1,2 @@
-include ':inflate_ex', ':viewpager_ex', ':service_ex', ':music_service', ':keycontrol', ':broadcastreciver_sms', ':local_broadcatereciver', ':system_broadcastreceiver', ':playmusicservice', ':notification_ex', ':dialog_ex'
+include ':inflate_ex', ':viewpager_ex', ':service_ex', ':music_service', ':keycontrol', ':broadcastreciver_sms', ':local_broadcatereciver', ':system_broadcastreceiver', ':playmusicservice', ':notification_ex', ':dialog_ex', ':singleplagment'
 rootProject.name='Chap11'

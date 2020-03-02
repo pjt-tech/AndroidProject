@@ -1,16 +1,16 @@
 package com.kye.dialog_ex;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AlertDialog;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+        import android.content.DialogInterface;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.Toast;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 builder.setMultiChoiceItems(singer, null, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                     String value = singer[which];
-                     if(isChecked){
-                         item.add(value);
-                     }else if(item.contains(value)){
-                         item.remove(value);
-                     }
+                        String value = singer[which];
+                        if(isChecked){
+                            item.add(value);
+                        }else if(item.contains(value)){
+                            item.remove(value);
+                        }
                     }
                 });
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-            Toast.makeText(getApplicationContext(),"취소했습니다.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"취소했습니다.",Toast.LENGTH_LONG).show();
             }
         });
 
