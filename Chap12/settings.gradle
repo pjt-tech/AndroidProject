@@ -1,2 +1,2 @@
-include ':tablayout_ex', ':recyclerview_ex'
+include ':tablayout_ex', ':recyclerview_ex', ':recyclerview_ex2'
 rootProject.name='Chap12'
