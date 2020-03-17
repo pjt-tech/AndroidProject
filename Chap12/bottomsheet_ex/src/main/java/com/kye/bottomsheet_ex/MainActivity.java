@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
         persistentBottomSheet.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if(persistentBottomSheet.getState()==BottomSheetBehavior.STATE_HIDDEN){
-                    persistentBottomSheet.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                if(persistentBottomSheet.getState()==BottomSheetBehavior.STATE_HIDDEN){  //잡아당길때의 이벤트
+                    persistentBottomSheet.setState(BottomSheetBehavior.STATE_COLLAPSED);  //숨겨졌을때의 기본크기로 해달라
                 }
             }
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
+                //슬라이드 할때 이벤트
             }
         });
     }
