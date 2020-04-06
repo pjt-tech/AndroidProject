@@ -50,4 +50,8 @@ public class SongAdapter extends BaseAdapter {
         view.setImageView(R.drawable.song);
         return view;
     }
+
+    public void removeItem(int position){
+        items.remove(position);
+    }
 }

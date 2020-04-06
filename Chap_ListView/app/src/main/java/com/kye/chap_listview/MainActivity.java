@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] titles = {"처음처럼","시작","On","그떄 그 아인","사랑,하자"};
+    String[] titles = {"처음처럼","시작","On","그때 그 아인","사랑,하자"};
     String[] singers ={"엠씨더맥스","가호","방탄소년단","김필","수호"};
     ListView listView;
     SongAdapter adapter;
@@ -49,6 +51,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SongItem item = (SongItem)adapter.getItem(position);
+                Toast.makeText(getApplicationContext(),"선택한 아이템 : " + item.getTitle() + item.getSinger(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                adapter.removeItem(position);
+                adapter.notifyDataSetChanged();
+                return true;
             }
         });
     }
