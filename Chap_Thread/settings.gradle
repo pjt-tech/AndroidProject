@@ -1,0 +1,2 @@
+include ':app', ':timer_thread', ':looper_ex', ':asynctask'
+rootProject.name='Chap_Thread'
