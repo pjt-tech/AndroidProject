@@ -1,0 +1,2 @@
+include ':app', ':asynctask_ex'
+rootProject.name='thread_ex'

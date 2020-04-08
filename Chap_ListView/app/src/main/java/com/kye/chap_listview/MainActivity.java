@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             adapter.addItem(item);
         }
 
-        listView.setAdapter(adapter);
+        i
 
         Button btn_add = findViewById(R.id.btn_add);
         Button btn_close = findViewById(R.id.btn_close);
