@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     ImageView startView,pauseView;
     boolean isRun = false;
-    boolean isRoll = true;
     Mythread myThread;
 
     @Override
