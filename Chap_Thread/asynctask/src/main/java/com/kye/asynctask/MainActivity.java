@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 value=0;
                 task.cancel(true);
+
             }
         });
 
