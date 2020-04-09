@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     int count;
     TextView textView;
     boolean st = true;
+    boolean cnacel = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

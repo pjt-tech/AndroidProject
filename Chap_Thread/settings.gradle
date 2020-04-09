@@ -1,2 +1,2 @@
-include ':app', ':timer_thread', ':looper_ex', ':asynctask', ':asynctask_timer'
+include ':app', ':timer_thread', ':looper_ex', ':asynctask', ':asynctask_timer', ':imagmove'
 rootProject.name='Chap_Thread'
