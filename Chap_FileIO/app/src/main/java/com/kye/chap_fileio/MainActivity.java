@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //위험권한
+
         ActivityCompat.requestPermissions(
                 this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
 
@@ -43,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        //SD카드 root디렉토리
         final String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/myDiary/";
+        //디렉토리가 없으면 생성
         File dir = new File(path);
         if(!dir.isDirectory()){
             dir.mkdir();
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 fileName = year+"-"+(monthOfYear+1)+"-"+ dayOfMonth+".txt";
-                contents = readDiary(fileName);
+                contents = readDiary(path+fileName);
                 editText.setText(contents);
             }
         });
@@ -91,10 +95,12 @@ public class MainActivity extends AppCompatActivity {
             str = new String(txt).trim();
             button.setText("수정하기");
             inputStream.close();
+
         } catch (Exception e) {
             editText.setHint("일기 없음");
             button.setText("새로저장");
         }
+
         return str;
     }
 }
