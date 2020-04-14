@@ -47,11 +47,15 @@ public class SongAdapter extends BaseAdapter {
         SongItem item = items.get(position);
         view.setTitle(item.getTitle());
         view.setSinger(item.getSinger());
-        view.setImageView(R.drawable.song);
+        view.setImageView(item.getImageResource());
         return view;
     }
 
     public void removeItem(int position){
         items.remove(position);
+    }
+
+    public void clear(){
+        items.clear();
     }
 }

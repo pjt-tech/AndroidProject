@@ -2,14 +2,25 @@ package com.kye.file_listview;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,14 +34,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},0);
+
         listView = findViewById(R.id.listView);
         Button btn_add = findViewById(R.id.button2);
         Button btn_close = findViewById(R.id.button);
+        Button btn_fileWrite = findViewById(R.id.button5);
+        Button btn_fileRead = findViewById(R.id.button6);
+
         adapter = new SongAdapter(getApplicationContext());
 
 
         for(int i=0; i<titles.length; i++){
-            SongItem item = new SongItem(titles[i],singers[i]);
+            SongItem item = new SongItem(titles[i],singers[i],R.drawable.song);
             adapter.addItem(item);
         }
         listView.setAdapter(adapter);
@@ -69,6 +85,59 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        btn_fileWrite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File file = getFile();
+                try {
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
+                    ArrayList<SongItem> items = adapter.items;
+                    objectOutputStream.writeObject(items.size());
+                    for(int i = 0; i < items.size(); i++){
+                        SongItem item = items.get(i);
+                        objectOutputStream.writeObject(item);
+                    }
+                    Toast.makeText(getApplicationContext(),"파일 쓰기가 완료되었습니다.",Toast.LENGTH_LONG).show();
+                    objectOutputStream.flush();
+                    objectOutputStream.close();
+
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(),"파일 쓰기가 실패하였습니다..",Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        });
+
+        btn_fileRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File file = getFile();
+                try {
+                    ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
+
+                    int count = (Integer) objectInputStream.readObject();
+                    adapter.clear();
+                    for(int i = 0; i<count; i++){
+                        SongItem item = (SongItem)objectInputStream.readObject();
+                        adapter.addItem(item);
+                    }
+                    objectInputStream.close();
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(getApplicationContext(),"파일 읽기가 완료되었습니다.",Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(),"파일 읽기가 실패하였습니다.",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public File getFile(){
+        File file =new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator
+        +"list.txt");
+
+        return file;
     }
 
     @Override
@@ -79,8 +148,9 @@ public class MainActivity extends AppCompatActivity {
 
                 String title = data.getStringExtra("title");
                 String singer = data.getStringExtra("singer");
+                int imageResource = data.getIntExtra("imageResource",0);
 
-                SongItem item = new SongItem(title,singer);
+                SongItem item = new SongItem(title,singer,imageResource);
                 adapter.addItem(item);
                 adapter.notifyDataSetChanged();
             }
