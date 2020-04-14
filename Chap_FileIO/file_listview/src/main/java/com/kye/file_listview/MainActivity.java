@@ -1,4 +1,4 @@
-package com.kye.chap_listview;
+package com.kye.file_listview;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listView = findViewById(R.id.listView);
-
+        Button btn_add = findViewById(R.id.button2);
+        Button btn_close = findViewById(R.id.button);
         adapter = new SongAdapter(getApplicationContext());
 
 
@@ -32,11 +33,9 @@ public class MainActivity extends AppCompatActivity {
             SongItem item = new SongItem(titles[i],singers[i]);
             adapter.addItem(item);
         }
+        listView.setAdapter(adapter);
 
-       
 
-        Button btn_add = findViewById(R.id.btn_add);
-        Button btn_close = findViewById(R.id.btn_close);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override

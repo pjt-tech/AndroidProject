@@ -34,7 +34,7 @@ public class MyPictureView extends View {
             int cenY = this.getHeight()/2;
             int picX = (this.getWidth()-bitmap.getWidth())/2;
             int picY = (this.getHeight()-bitmap.getHeight())/2;
-            canvas.scale(2,2,cenX,cenY);
+            canvas.scale(4,4,cenX,cenY);
             canvas.drawBitmap(bitmap,picX,picY,null);
             bitmap.recycle();
 
