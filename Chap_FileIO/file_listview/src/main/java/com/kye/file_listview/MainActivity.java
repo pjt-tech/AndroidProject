@@ -89,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
         btn_fileWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+            }
+        });
+
+        /* 파일쓰기와 읽기의 이벤트
+        btn_fileWrite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 File file = getFile();
                 try {
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
@@ -131,6 +139,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+         */
+
+
     }
 
     public File getFile(){
@@ -159,5 +171,20 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+
+    class WriteTread extends Thread{
+        @Override
+        public void run() {
+            super.run();
+        }
+    }
+
+    class ReadTread extends Thread{
+        @Override
+        public void run() {
+            super.run();
+        }
+    }
+
 
 }
