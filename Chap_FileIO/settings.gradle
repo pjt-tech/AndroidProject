@@ -1,2 +1,2 @@
-include ':app', ':filegallery', ':file_listview'
+include ':app', ':filegallery', ':file_listview', ':mypaintboard'
 rootProject.name='Chap_FileIO'
