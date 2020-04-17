@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     String[] singers ={"엠씨더맥스","가호","방탄소년단","김필","수호"};
     ListView listView;
     SongAdapter adapter;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +89,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //안드로이드는 반드시 소켓을 사용할때 스레드사용
+
         btn_fileWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                WriteTread tread = new WriteTread();
+                tread.start();
+
+            }
+        });
+
+        btn_fileRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ReadTread tread = new ReadTread();
+                tread.start();
 
             }
         });
@@ -175,14 +193,79 @@ public class MainActivity extends AppCompatActivity {
     class WriteTread extends Thread{
         @Override
         public void run() {
-            super.run();
+            try {
+                Socket socktet = new Socket("210.96.43.5",11000);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socktet.getOutputStream());
+                outputStream.writeObject("WRITE");
+                ArrayList<SongItem> items = adapter.items;
+                outputStream.writeObject(new Integer(items.size()));
+                for(int i=0; i< items.size(); i++){
+                    SongItem item = items.get(i);
+                    outputStream.writeObject(item);
+                    outputStream.flush();
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"서버로 리스트 데이터 쓰기 완료",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                outputStream.close();
+                socktet.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     class ReadTread extends Thread{
         @Override
         public void run() {
-            super.run();
+            try {
+                Socket socktet = new Socket("210.96.43.5",11000);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socktet.getOutputStream());
+                outputStream.writeObject("READ");
+                outputStream.flush();
+
+                ObjectInputStream inputStream = new ObjectInputStream(socktet.getInputStream());
+                int count = (int)inputStream.readObject();
+
+                //Thread에서는 adapter에 직접 접근불가 핸들러 이용
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.clear();
+                    }
+                });
+
+                for(int i=0; i<count; i++){
+                    final SongItem item = (SongItem)inputStream.readObject();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.addItem(item);
+                        }
+                    });
+                }
+
+                adapter.notifyDataSetChanged();
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"서버에서 리스트 데이터 읽기 완료",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                inputStream.close();
+                socktet.close();
+                outputStream.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
