@@ -194,8 +194,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                Socket socktet = new Socket("210.96.43.5",11000);
-                ObjectOutputStream outputStream = new ObjectOutputStream(socktet.getOutputStream());
+                Socket socket = new Socket("210.96.43.5",11000);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
                 outputStream.writeObject("WRITE");
                 ArrayList<SongItem> items = adapter.items;
                 outputStream.writeObject(new Integer(items.size()));
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 outputStream.close();
-                socktet.close();
+                socket.close();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -224,12 +224,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                Socket socktet = new Socket("210.96.43.5",11000);
-                ObjectOutputStream outputStream = new ObjectOutputStream(socktet.getOutputStream());
+                Socket socket = new Socket("210.96.43.5",11000);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
                 outputStream.writeObject("READ");
                 outputStream.flush();
 
-                ObjectInputStream inputStream = new ObjectInputStream(socktet.getInputStream());
+                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
                 int count = (int)inputStream.readObject();
 
                 //Thread에서는 adapter에 직접 접근불가 핸들러 이용
@@ -246,21 +246,23 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             adapter.addItem(item);
+
                         }
                     });
                 }
 
-                adapter.notifyDataSetChanged();
+
 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(),"서버에서 리스트 데이터 읽기 완료",Toast.LENGTH_LONG).show();
+                        adapter.notifyDataSetChanged();
                     }
                 });
 
                 inputStream.close();
-                socktet.close();
+                socket.close();
                 outputStream.close();
 
             } catch (Exception e) {
