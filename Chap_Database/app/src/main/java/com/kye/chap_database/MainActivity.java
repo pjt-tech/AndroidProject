@@ -1,7 +1,6 @@
 package com.kye.chap_database;
 
         import androidx.appcompat.app.AppCompatActivity;
-
         import android.content.ContentValues;
         import android.database.sqlite.SQLiteDatabase;
         import android.os.Bundle;
@@ -14,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
 
     EditText db_Name,tb_Name;
     TextView status;
-
     String database_name,table_name;
     Boolean database_create = false;
     Boolean table_create = false;
