@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
     String table_Name = "customer";
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         status = findViewById(R.id.textView);
         Button query_Btn = findViewById(R.id.button);
         listView = findViewById(R.id.listView);
+        context = MainActivity.this;
 
         query_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
                 boolean isOpen = createDatabase();
                 if(isOpen){
                     Cursor cursor = executeQuery();
+                    String[] colums = {"name","age","phone"};
+                    int[] to = {R.id.list_name,R.id.list_age,R.id.list_phone};
+
+                    SimpleCursorAdapter adapter = new SimpleCursorAdapter(context,R.layout.list_layout,cursor,colums,to);
+                    listView.setAdapter(adapter);
                 }
             }
         });
@@ -55,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Cursor executeQuery(){
-        //String query = "select _id, name, age, phone from "+table_Name+";";
-        String query2 = "select _id ,name ,age, phone from "+table_Name+" where age>?;";
-        String[] args = {"30"};
-        //Cursor cursor = db.rawQuery(query,null);
-        Cursor cursor = db.rawQuery(query2,args);
+        String query = "select _id, name, age, phone from "+table_Name+";";
+        Cursor cursor = db.rawQuery(query,null);
+        //String query2 = "select _id ,name ,age, phone from "+table_Name+" where age>?;";
+        //String[] args = {"30"};
+        //Cursor cursor = db.rawQuery(query2,args);
         int recordCount = cursor.getCount();
         for(int i = 0; i<recordCount; i++){
             cursor.moveToNext();
