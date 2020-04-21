@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     TextView status;
     ListView listView;
     String databaseName;
-    int version=1;
+    int version=3;
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
     String table_Name = "customer";
@@ -101,13 +101,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            println(oldVersion+"에서"+newVersion+"으로 수정합니다.");
+            println("manager 테이블을 추가로 생성합니다.");
+            db.execSQL("create table if not exists manager2(_id integer PRIMARY KEY autoincrement,"
+                    + "name text,age integer,phone text);");
+
+            db.execSQL("insert into manager2(name,age,phone) values('Twice',20,'010-1111-1111');");
+            db.execSQL("insert into manager2(name,age,phone) values('ITZY',22,'010-2222-2222');");
+            db.execSQL("insert into manager2(name,age,phone) values('Black PINK',25,'010-3333-3333');");
+
 
         }
 
         @Override
         public void onOpen(SQLiteDatabase db) {
             println("[" + databaseName + "]"+"데이터베이스와[" + table_Name + "] 테이블을 열었습니다.");
-
 
         }
 
