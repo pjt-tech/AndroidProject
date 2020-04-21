@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':database_ex'
 rootProject.name='Chap_Database'
