@@ -1,4 +1,4 @@
-package com.kye.database_ex;
+package com.kye.database_ex2;
 
 import org.junit.Test;
 

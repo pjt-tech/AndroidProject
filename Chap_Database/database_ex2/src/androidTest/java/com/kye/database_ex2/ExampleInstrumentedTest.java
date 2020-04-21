@@ -1,4 +1,4 @@
-package com.kye.database_ex;
+package com.kye.database_ex2;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.kye.database_ex", appContext.getPackageName());
+        assertEquals("com.kye.database_ex2", appContext.getPackageName());
     }
 }

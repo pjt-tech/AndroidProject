@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.kye.database_ex"
+        applicationId "com.kye.database_ex2"
         minSdkVersion 15
         targetSdkVersion 29
         versionCode 1
