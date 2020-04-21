@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 table_name = tb_Name.getText().toString();
                 createTable(table_name);
-                int count = insertRecord(table_name);
-                println(count+"개의 레코드를 입력하였습니다.");
+                //int count = insertRecord(table_name);
+                //println(count+"개의 레코드를 입력하였습니다.");
             }
         });
     }
@@ -66,11 +66,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void println(String msg){
-        status.append("\n" + msg);
+            status.append("\n" + msg);
     }
 
     public int insertRecord(String name){
         if(table_create==true){
+            //statement와 비슷
             db.execSQL("insert into "+name+"(name,age,phone) values('jone',20,'010-1000-1000');");
             db.execSQL("insert into "+name+"(name,age,phone) values('Mike',26,'010-2000-2000');");
             db.execSQL("insert into "+name+"(name,age,phone) values('Sean',35,'010-3000-3000');");
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void insert_Click(View view) {
+        //preparedstatement와 같은
         ContentValues record_Value = new ContentValues();
         record_Value.put("name","Rice");
         record_Value.put("age",40);
@@ -89,8 +91,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void update_Click(View view) {
+        //db.execSQL("update "+table_name+" set age=50 where name='Rice';");
+        ContentValues record_Value = new ContentValues();
+        record_Value.put("age",40);
+        String args[]={"Rice"};
+        int count = db.update(table_name,record_Value,"name=?",args);
+
+        println("[" + table_name + "] 테이블에 1개의 데이터를 수정하였습니다.");
     }
 
     public void delete_Click(View view) {
+        //db.execSQL("delete from "+table_name+" where age>=40;");
+        String args[] = {"20"};
+        int count = db.delete(table_name,"age>=?",args);
+        println("[" + table_name + "] 테이블에"+count+"개의 데이터를 삭제하였습니다.");
+
     }
 }
