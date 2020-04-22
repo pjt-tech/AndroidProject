@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
                     Cursor cursor = executeQuery();
                     String[] colums = {"name","age","phone"};
                     int[] to = {R.id.list_name,R.id.list_age,R.id.list_phone};
-
                     SimpleCursorAdapter adapter = new SimpleCursorAdapter(context,R.layout.list_layout,cursor,colums,to);
                     listView.setAdapter(adapter);
                 }
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onOpen(SQLiteDatabase db) {
-            println("[" + databaseName + "]"+"데이터베이스와[" + table_Name + "] 테이블을 열었습니다.");
+            println("[" + databaseName + "] 데이터베이스와 [" + table_Name + "] 테이블을 열었습니다.");
 
         }
 

@@ -1,2 +1,2 @@
-include ':app', ':database_ex', ':database_ex2'
+include ':app', ':database_ex', ':database_ex2', ':singergroupdb'
 rootProject.name='Chap_Database'
