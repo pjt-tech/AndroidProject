@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 String name = edtName.getText().toString();
                 if(!(name.isEmpty())){
                     db.execSQL("delete from groupTBL Where gName='"+name+"';");
+                    edtName.setText("");
                     btnSelect.callOnClick();
                     Toast.makeText(getApplicationContext(), "데이터가 삭제되었습니다.", Toast.LENGTH_LONG).show();
                 }
