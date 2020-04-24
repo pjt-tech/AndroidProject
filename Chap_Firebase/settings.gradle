@@ -1,2 +1,2 @@
-include ':app', ':firebase_ex2'
+include ':app', ':firebase_ex2', ':firebase_ex'
 rootProject.name='Chap_Firebase'
