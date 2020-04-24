@@ -49,7 +49,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-
+                if (editText != null) {
+                    Cursor cursor = db.rawQuery("select * from " + table_name + ";", null);
+                    while (cursor.moveToNext()) {
+                        contents += cursor.getInt(1) + "\n";
+                    }
+                    editText.setText(contents);
+                }
             }
         });
 
@@ -65,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void insertDate(SQLiteDatabase db){
         contents = editText.getText().toString();
-        db.execSQL("insert into "+ table_name +" values('데이터','" + contents + "')");
+        db.execSQL("insert into "+ table_name +" values('데이터', '" + contents + "');");
         Toast.makeText(getApplicationContext(),"데이터 입력이 완료되었습니다.",Toast.LENGTH_LONG).show();
         button.setText("수정하기");
     }
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table "+table_name+"(diaryDate char(10) PRIMARY KEY,content varchar(500));");
+            db.execSQL("create table if not exists "+table_name+"(diaryDate char(10) PRIMARY KEY,content varchar(500));");
         }
 
         @Override
