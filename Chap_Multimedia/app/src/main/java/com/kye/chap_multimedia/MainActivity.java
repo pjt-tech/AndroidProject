@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnStart,btnPause,btnRestart;
     static final  String AUDIO_URL = "https://sites.google.com/site/ubiaccessmobile/sample_audio.mp3";
     MediaPlayer mediaPlayer;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v==btnStart){
             try {
                 playAudio(AUDIO_URL);
+                Toast.makeText(getApplicationContext(),"미디어실행",Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }else if(v==btnPause){
+            if(mediaPlayer!=null&&mediaPlayer.isPlaying()){
+                position = mediaPlayer.getCurrentPosition();
+                Toast.makeText(getApplicationContext(),"미디어중지",Toast.LENGTH_LONG).show();
+                mediaPlayer.pause();
+            }
+        }else if(v==btnRestart){
+            if(mediaPlayer!=null&&!mediaPlayer.isPlaying()){
+                mediaPlayer.seekTo(position);
+                mediaPlayer.start();
+                Toast.makeText(getApplicationContext(),"미디어재실행",Toast.LENGTH_LONG).show();
             }
         }
 
