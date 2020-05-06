@@ -1,9 +1,12 @@
 package com.kye.chap_multimedia;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,11 +19,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     static final  String AUDIO_URL = "https://sites.google.com/site/ubiaccessmobile/sample_audio.mp3";
     MediaPlayer mediaPlayer;
     int position;
+    String filePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
 
         btnStart = findViewById(R.id.button);
         btnPause = findViewById(R.id.button2);
@@ -28,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStart.setOnClickListener(this);
         btnPause.setOnClickListener(this);
         btnRestart.setOnClickListener(this);
+
+        filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Download/sample.mp3";
+
     }
 
 
@@ -36,7 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(v==btnStart){
             try {
-                playAudio(AUDIO_URL);
+                //playAudio(AUDIO_URL);
+                //playAudio();
+                playAudio(filePath);
                 Toast.makeText(getApplicationContext(),"미디어실행",Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -57,10 +68,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void playAudio(String url) throws IOException {
+    public void playAudio(String filePath) throws IOException {
         killPlayer();
         mediaPlayer = new MediaPlayer();
-        mediaPlayer.setDataSource(url);
+        mediaPlayer.setDataSource(filePath);
+        //raw디렉터리에 있는 음악파일 실행
+        //mediaPlayer = MediaPlayer.create(this,R.raw.sleep);
         mediaPlayer.prepare();
         mediaPlayer.start();
     }
