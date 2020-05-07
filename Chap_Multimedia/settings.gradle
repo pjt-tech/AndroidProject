@@ -1,2 +1,2 @@
-include ':app', ':videoplayer', ':youtubeplayer', ':audio_recoder'
+include ':app', ':videoplayer', ':youtubeplayer', ':audio_recoder', ':video_recorder', ':cameraintent'
 rootProject.name='Chap_Multimedia'
