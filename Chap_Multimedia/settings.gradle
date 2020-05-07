@@ -1,2 +1,2 @@
-include ':app', ':videoplayer', ':youtubeplayer'
+include ':app', ':videoplayer', ':youtubeplayer', ':audio_recoder'
 rootProject.name='Chap_Multimedia'

@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends YouTubeBaseActivity {
 
     YouTubePlayerView youTubePlayerView;
     YouTubePlayer youTubePlayer;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         youTubePlayerView.initialize("AIzaSyBojWazps51Ta2XOvuA5h_Ps2LG2J0-8No", new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadPlaylist("https://youtu.be/s03xqLrpeHc");
+                youTubePlayer.loadVideo("wzyZ35DIHz0");
                 youTubePlayer.play();
             }
 
