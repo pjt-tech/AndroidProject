@@ -1,5 +1,6 @@
 package com.kye.cameraintent;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -81,6 +82,17 @@ public class MainActivity extends AppCompatActivity {
                 bitmap = rotatebitmap;
                 imageView.setImageBitmap(bitmap);
             }
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if(newConfig.orientation==ORIENTATION_LANDSCAPE){
+            imageView.setImageBitmap(bitmap);
+        }else {
+            imageView.setImageBitmap(bitmap);
         }
     }
 }
