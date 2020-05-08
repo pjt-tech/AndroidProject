@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':mygooglemap'
 rootProject.name='Chap_Location'
