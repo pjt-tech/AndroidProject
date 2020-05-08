@@ -14,7 +14,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,5 +89,16 @@ public class MainActivity extends AppCompatActivity {
         LatLng curPoint = new LatLng(latitude,longitude);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(curPoint,15));
         map.setMyLocationEnabled(true);
+        showAllItems(35.833493, 127.137918,R.drawable.school,"백제","직업전문학교");
+    }
+
+    private void showAllItems(double latitude,double longitude,int id,String title,String snippet){
+        MarkerOptions marker = new MarkerOptions();
+        marker.position(new LatLng(latitude,longitude));
+        marker.title(title);
+        marker.snippet(snippet);
+        marker.draggable(true);
+        marker.icon(BitmapDescriptorFactory.fromResource(id));
+        map.addMarker(marker);
     }
 }
