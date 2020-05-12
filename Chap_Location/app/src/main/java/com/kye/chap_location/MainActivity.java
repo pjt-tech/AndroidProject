@@ -36,22 +36,25 @@ public class MainActivity extends AppCompatActivity {
     public void startLocationService() {
 
         long time = 10000;
-        float distane = 0;
+        float distance = 0;
+        //위치관리자
         LocationManager manager = (LocationManager)getSystemService(LOCATION_SERVICE);
 
         try {
-
+            //마지막 위치 값
             Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (manager != null) {
+                //위도와 경도 표시
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 textView.setText("최근 내 위치 : " + latitude + ", " + longitude);
              }
 
+            //실시간 위치반영
             GPSListener gpsListener = new GPSListener();
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,time,distane,gpsListener);
-            manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,time,distane,gpsListener);
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,time,distance,gpsListener);
+            manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,time,distance,gpsListener);
 
             }catch (SecurityException e){
 
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     class GPSListener implements LocationListener{
 
         @Override
+        //위치가 바뀌엇을때 콜백
         public void onLocationChanged(Location location) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
