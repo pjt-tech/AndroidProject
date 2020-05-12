@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,time,distance,gpsListener);
             manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,time,distance,gpsListener);
 
+            //SecurityException 발생 정확하게 SecurityException 기재
             }catch (SecurityException e){
 
         }

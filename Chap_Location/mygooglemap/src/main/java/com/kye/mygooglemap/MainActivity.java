@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MainActivity extends AppCompatActivity {
 
     MapFragment mapFragment;
+    double latitude, longitude;
     GoogleMap map;
 
     @Override
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startLocation() {
-        long time = 10000;
+        long time = 60000;
         float distane = 0;
         LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         try {
@@ -88,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     public void showCurrentLocation(double latitude, double longitude){
         LatLng curPoint = new LatLng(latitude,longitude);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(curPoint,15));
-        map.setMyLocationEnabled(true);
+        //map.setMyLocationEnabled(true);
         showAllItems(35.833493, 127.137918,R.drawable.school,"백제","직업전문학교");
     }
 
@@ -100,5 +105,51 @@ public class MainActivity extends AppCompatActivity {
         marker.draggable(true);
         marker.icon(BitmapDescriptorFactory.fromResource(id));
         map.addMarker(marker);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        menu.add(0,1,0,"위성지도");
+        menu.add(0,2,0,"일반지도");
+        menu.add(0,3,0,"주소 검색창으로 이동");
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case 1 :
+                map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                showCurrentLocation(latitude, longitude);
+                break;
+            case 2 :
+                map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                showCurrentLocation(latitude, longitude);
+                break;
+            case 3 :
+                Intent intent = new Intent(getApplicationContext(), GeoCodingActivity.class);
+                startActivityForResult(intent, 1000);
+                break;
+
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1000 && resultCode==RESULT_OK){
+            latitude = data.getDoubleExtra("latitude",0.0);
+            longitude =data.getDoubleExtra("longitude",0.0);
+            showCurrentLocation(latitude, longitude);
+            Toast.makeText(getApplicationContext(),"검색을 완료되었습니다.",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(),"검색을 취소되었습니다.",Toast.LENGTH_SHORT).show();
+        }
     }
 }
