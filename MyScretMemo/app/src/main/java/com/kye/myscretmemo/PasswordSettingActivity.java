@@ -115,4 +115,12 @@ public class PasswordSettingActivity extends AppCompatActivity {
         SharedPreferences preferences = context.getSharedPreferences("environ",0);
         return preferences.getString("password","");
     }
+
+    @Override
+    public void onBackPressed() {
+        intent.putExtra("mode","exit");
+        setResult(RESULT_CANCELED,intent);
+        finish();
+    }
+
 }

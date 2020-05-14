@@ -10,10 +10,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -97,7 +99,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           }
       });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                MemoItem item = (MemoItem)adapter.getItem(position);
+                String imagePath = item.getImagePath();
+                File curFile = new File(imagePath);
+                curFile.delete();
 
+                ArrayList<MemoItem> items = adapter.items;
+                items.remove(position);
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(),"선택 항목이 삭제되었습니다",Toast.LENGTH_LONG).show();
+
+                try {
+                    ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
+                    outputStream.writeObject(new Integer(items.size()));
+                    for(int i=0; i<items.size(); i++){
+                        MemoItem memoItem = items.get(i);
+                        outputStream.writeObject(memoItem);
+                    }
+                    outputStream.flush();
+                    outputStream.close();
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return false;
+            }
+        });
 
     }
 
